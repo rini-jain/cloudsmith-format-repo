@@ -28,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: Archive build output
-        run: tar -czvf resurfaceio-ui.tar.gz out
+        run: tar -czvf dummy.tar.gz out
 
       - name: Push to Cloudsmith
         id: push
