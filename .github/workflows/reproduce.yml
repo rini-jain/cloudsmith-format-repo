@@ -30,6 +30,6 @@ jobs:
           owner: "rini-jain-rnye" # Your Cloudsmith account name or org name (namespace)
           repo: "new_repo1" # Your Cloudsmith Repository name (slug)
           file: "dummy.tar.gz" # Name of file
-          name: "dummy.tar.gz" # Name for Raw package
+          name: "dummy.tar.gz" # Name for Raw packages
           version: 3.7.${{github.run_number}}
               
