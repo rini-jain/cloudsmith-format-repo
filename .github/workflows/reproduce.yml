@@ -3,7 +3,7 @@ name: Reproduce Cloudsmith Format Bug
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   push:
