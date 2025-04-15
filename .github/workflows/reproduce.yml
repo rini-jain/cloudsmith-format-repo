@@ -1,0 +1,33 @@
+name: Reproduce Cloudsmith Format Bug
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create a dummy file
+        run: echo "This is a test file" > dummy.txt
+
+      - name: Compress the file
+        run: tar -czvf dummy.tar.gz dummy.txt
+
+      - name: Push to Cloudsmith with master (bug trigger)
+        uses: cloudsmith-io/action@master
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "raw"
+          owner: "rini-jain-rnye" 
+          repo: "new_repo1"         
+          file: "dummy.tar.gz"
+          name: "dummy.tar.gz"
+          version: "1.0.0"
+          
