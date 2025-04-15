@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Create a dummy file
         run: echo "This is a test file" > dummy.txt
