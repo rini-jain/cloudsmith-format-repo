@@ -10,26 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-        node-version: "20"
+          node-version: "20"
 
-      - run: npm ci --legacy-peer-deps
-      - run: cp .env.production .env.production.local
-      - run: npm run build
-      - run: tar -czvf resurfaceio-ui.tar.gz out
-      - name: Push
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Copy env
+        run: cp .env.production .env.production.local
+
+      - name: Build
+        run: npm run build
+
+      - name: Archive build output
+        run: tar -czvf resurfaceio-ui.tar.gz out
+
+      - name: Push to Cloudsmith
         id: push
         uses: cloudsmith-io/action@master
         with:
-        api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
-        command: "push"
-        format: "raw"
-        owner: "rini-jain-rnye" # Your Cloudsmith account name or org name (namespace)
-        repo: "new_repo1" # Your Cloudsmith Repository name (slug)
-        file: "dummy.tar.gz" # Name of file
-        name: "dummy.tar.gz" # Name for Raw packages
-        version: 3.7.${{github.run_number}}
-              
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "raw"
+          owner: "rini-jain-rnye"     # Cloudsmith account/namespace
+          repo: "new_repo1"           # Cloudsmith repository slug
+          file: "dummy.tar.gz"        # File to upload
+          name: "dummy.tar.gz"        # Package name in Cloudsmith
+          version: 3.7.${{ github.run_number }}
