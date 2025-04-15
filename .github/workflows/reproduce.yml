@@ -28,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: Archive build output
-        run: tar -czvf dummy.tar.gz out
+        run: tar -czvf dummy.tar.gz dummy.txt
 
       - name: Push to Cloudsmith
         id: push
